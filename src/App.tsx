@@ -1,11 +1,16 @@
-import { Button } from "@chakra-ui/react";
+import { Route, Routes } from "react-router";
+import { LoginForm } from "./features/LoginForm";
+import { Home } from "./features/Home";
+import { Settings } from "./features/Settings";
+import { Review } from "./features/Review";
 
-function App() {
+export function App() {
   return (
-    <>
-      <Button>ボタン</Button>
-    </>
+    <Routes>
+      <Route path="/" element={<LoginForm />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/review" element={<Review />} />
+      <Route path="/settings" element={<Settings />} />
+    </Routes>
   );
 }
-
-export default App;
