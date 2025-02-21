@@ -2,7 +2,7 @@ import { Outlet, useNavigate } from "react-router";
 import {Header} from "../molecures/Header";
 import { Box } from "@chakra-ui/react";
 
-export function Layout() {
+export function HeaderLayout() {
   const navigate = useNavigate();
   const onClickLogout = () => {
     navigate("/");
