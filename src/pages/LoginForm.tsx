@@ -46,6 +46,7 @@ export function LoginForm() {
             </Heading>
 
             {error && (
+              // 本当はトーストにしたい
               <Box animationName="fade-in" animationDuration="slowest">
               <Alert.Root status="error">
                 <Alert.Indicator />
