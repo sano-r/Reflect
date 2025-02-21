@@ -16,6 +16,7 @@ export function Header({ username, onLogout }: HeaderProps){
       bg="blue.500" // 背景色
       color="white" // 文字色
       position="fixed"
+      shadow="lg"
     >
       <Heading as="h1" size="lg">
         Reflect
