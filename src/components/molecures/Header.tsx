@@ -1,4 +1,3 @@
-import React from "react";
 import { Flex, Heading, Button, Spacer } from "@chakra-ui/react";
 
 interface HeaderProps {
@@ -6,7 +5,7 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ username, onLogout }) => {
+export function Header({ username, onLogout }: HeaderProps){
   return (
     <Flex
       as="header"
@@ -34,4 +33,3 @@ const Header: React.FC<HeaderProps> = ({ username, onLogout }) => {
   );
 };
 
-export default Header;

@@ -1,5 +1,6 @@
 import { Outlet, useNavigate } from "react-router";
-import Header from "../molecures/Header";
+import {Header} from "../molecures/Header";
+import { Box } from "@chakra-ui/react";
 
 export function Layout() {
   const navigate = useNavigate();
@@ -7,11 +8,11 @@ export function Layout() {
     navigate("/");
   };
   return (
-    <div>
+    <>
       <Header username="User001" onLogout={onClickLogout} />
-      <main>
+      <Box pt="60px">
         <Outlet /> {/* ここに各ページコンポーネントがレンダリングされる */}
-      </main>
-    </div>
+      </Box>
+    </>
   );
 }
