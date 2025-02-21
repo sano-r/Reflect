@@ -1,18 +1,20 @@
-import { Outlet, useNavigate } from "react-router";
-import {Header} from "../molecures/Header";
-import { Box } from "@chakra-ui/react";
+import { Outlet } from "react-router";
+import { Header } from "../molecures/Header";
+import { Box, Flex } from "@chakra-ui/react";
+import {SideMenu} from "../molecures/SideMenu";
 
 export function HeaderLayout() {
-  const navigate = useNavigate();
-  const onClickLogout = () => {
-    navigate("/");
-  };
+  
+  
   return (
-    <>
-      <Header username="User001" onLogout={onClickLogout} />
-      <Box pt="60px">
-        <Outlet /> {/* ここに各ページコンポーネントがレンダリングされる */}
+    <Box minHeight="100vh">
+      <Header username="User001"/>
+      <Box pt="60px" minHeight={"calc(100vh-60px)"} >
+        <Flex direction={"row"} flex={1} alignItems={"flex-start"}>
+          <SideMenu />
+          <Outlet /> {/* ここに各ページコンポーネントがレンダリングされる */}
+        </Flex>
       </Box>
-    </>
+    </Box>
   );
 }

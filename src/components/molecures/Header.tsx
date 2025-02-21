@@ -1,11 +1,15 @@
 import { Flex, Heading, Button, Spacer } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 
 interface HeaderProps {
   username: string;
-  onLogout: () => void;
 }
 
-export function Header({ username, onLogout }: HeaderProps){
+export function Header({ username}: HeaderProps){
+  const navigate = useNavigate();
+  const onClickLogout = () => {
+    navigate("/");
+  }
   return (
     <Flex
       as="header"
@@ -26,7 +30,7 @@ export function Header({ username, onLogout }: HeaderProps){
         <Heading as="h2" size="md" mr="10px">
           {username}
         </Heading>
-        <Button colorPalette="yellow" onClick={onLogout}>
+        <Button colorPalette="yellow" onClick={onClickLogout}>
           ログアウト
         </Button>
       </Flex>

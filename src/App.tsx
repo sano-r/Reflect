@@ -6,6 +6,7 @@ import { Review } from "./pages/Review";
 import { HeaderLayout } from "./components/shared/HeaderLayout";
 import { Page404 } from "./pages/Page404";
 import { Toaster } from "./components/ui/toaster";
+import { Layout } from "./components/shared/Layout";
 
 export function App() {
   return (
@@ -13,7 +14,7 @@ export function App() {
     <Toaster />
     <Routes>
       <Route path="/" element={<LoginForm />} />
-      <Route element={<HeaderLayout />}>
+      <Route element={<Layout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/review" element={<Review />} />
         <Route path="/settings" element={<Settings />} />
