@@ -44,12 +44,14 @@ export function LoginForm() {
             </Heading>
 
             {error && (
-              <Alert.Root status="error" _open={{animation: "fade-in 300ms ease-out"}}>
+              <Box animationName="fade-in" animationDuration="slowest">
+              <Alert.Root status="error">
                 <Alert.Indicator />
                 <Alert.Content>
                   <Alert.Title>{error}</Alert.Title>
                 </Alert.Content>
               </Alert.Root>
+              </Box>
             )}
 
             <form onSubmit={handleSubmit}>
