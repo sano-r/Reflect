@@ -4,6 +4,7 @@ import { Home } from "./pages/Home";
 import { Settings } from "./pages/Settings";
 import { Review } from "./pages/Review";
 import { Layout } from "./components/shared/Layout";
+import { Page404 } from "./pages/Page404";
 
 export function App() {
   return (
@@ -14,6 +15,7 @@ export function App() {
         <Route path="/review" element={<Review />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
+      <Route path="*" element={<Page404 />} />
     </Routes>
   );
 }
