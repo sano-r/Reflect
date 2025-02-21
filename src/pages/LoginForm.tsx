@@ -11,8 +11,10 @@ import {
 } from '@chakra-ui/react';
 import { Field } from '@/components/ui/field'
 import { PasswordInput } from '@/components/ui/password-input';
+import { useNavigate } from 'react-router';
 
 export function LoginForm() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -21,9 +23,9 @@ export function LoginForm() {
     e.preventDefault();
 
     // ここで実際のログイン処理を行う
-    if (email === 'test@example.com' && password === 'password') {
-      // ホーム画面に遷移したい
-      alert('ログイン成功！');
+    if (email === 'test@example.com' && password === 'dummypass') {
+      // ホーム画面に遷移
+      navigate('/home');
     } else {
       setError('メールアドレスまたはパスワードが間違っています。');
     }
