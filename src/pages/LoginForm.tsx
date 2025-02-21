@@ -1,66 +1,74 @@
-import React, { useState } from "react";
-import { Flex, Box, Heading, Input, Button } from "@chakra-ui/react";
+import React, { useState } from 'react';
+import {
+  Box,
+  Heading,
+  Input,
+  Button,
+  Alert,
+  Center,
+  Flex,
+  Text
+} from '@chakra-ui/react';
+import { Field } from '@/components/ui/field'
+import { PasswordInput } from '@/components/ui/password-input';
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const toast = useToast();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    // ログイン処理
-    if (email === "test@example.com" && password === "password") {
-      // ログイン成功
-      toast({
-        title: "ログイン成功",
-        description: "ログインしました。",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
+    // ここで実際のログイン処理を行う
+    if (email === 'test@example.com' && password === 'password') {
+      // ホーム画面に遷移したい
+      alert('ログイン成功！');
     } else {
-      // ログイン失敗
-      toast({
-        title: "ログイン失敗",
-        description: "メールアドレスまたはパスワードが間違っています。",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      setError('メールアドレスまたはパスワードが間違っています。');
     }
   };
 
   return (
-    <Flex align="center" justify="center" h="100vh">
-      <Box bg="gray.100" p={8} borderRadius="lg">
-        <Heading as="h1" size="lg" mb={4}>
-          ログイン
-        </Heading>
-        <form onSubmit={handleSubmit}>
-          <FormControl mb={4}>
-            <FormLabel>メールアドレス</FormLabel>
-            <Input
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </FormControl>
-          <FormControl mb={6}>
-            <FormLabel>パスワード</FormLabel>
-            <Input
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </FormControl>
-          <Button type="submit" colorScheme="blue" width="100%">
-            ログイン
-          </Button>
-        </form>
-      </Box>
-    </Flex>
+    <Center h="100vh" backgroundColor={"gray.100"}>
+      <Flex direction="column" align={"center"} gap={4} justify={"center"}>
+        <div>
+          <Heading as="h1" size={"3xl"} mb={2}>Reflect | Review yourself!</Heading>
+          <Text justifySelf="center">振り返りアプリ</Text>
+
+        </div>
+        <Box p={4} maxWidth="md" borderWidth="1px" borderRadius="lg" minWidth={"md"} backgroundColor={"white"}>
+          <Flex gap="4" direction={"column"}>
+            <Heading as="h2" size="lg">
+              ログイン
+            </Heading>
+
+            {error && (
+              <Alert.Root status="error" _open={{animation: "fade-in 300ms ease-out"}}>
+                <Alert.Indicator />
+                <Alert.Content>
+                  <Alert.Title>{error}</Alert.Title>
+                </Alert.Content>
+              </Alert.Root>
+            )}
+
+            <form onSubmit={handleSubmit}>
+              <Flex gap="2" align={"center"} direction={"column"}>
+                <Field mb={4} label="メールアドレス" required errorText="必須入力です">
+                  <Input type='email' value={email} onChange={e => setEmail(e.target.value)} />
+                </Field>
+
+                <Field label="パスワード" required>
+                  <PasswordInput value={password} onChange={e => setPassword(e.target.value)} />
+                </Field>
+              </Flex>
+              <Button type="submit" colorPalette="blue" width="full" mt={"4"}>
+                ログイン
+              </Button>
+            </form>
+          </Flex>
+        </Box>
+      </Flex>
+    </Center>
   );
-}
+};
