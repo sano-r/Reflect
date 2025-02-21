@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ username, onLogout }) => {
         <Heading as="h2" size="md" mr="10px">
           {username}
         </Heading>
-        <Button colorScheme="yellow" onClick={onLogout}>
+        <Button colorPalette="yellow" onClick={onLogout}>
           ログアウト
         </Button>
       </Flex>

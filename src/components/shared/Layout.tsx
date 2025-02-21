@@ -1,9 +1,10 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Header from "../molecures/Header";
 
 export function Layout() {
+  const navigate = useNavigate();
   const onClickLogout = () => {
-    console.log("ログアウト");
+    navigate("/");
   };
   return (
     <div>
