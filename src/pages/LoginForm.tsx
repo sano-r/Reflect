@@ -4,7 +4,6 @@ import {
   Heading,
   Input,
   Button,
-  Alert,
   Center,
   Flex,
   Text
@@ -12,12 +11,12 @@ import {
 import { Field } from '@/components/ui/field'
 import { PasswordInput } from '@/components/ui/password-input';
 import { useNavigate } from 'react-router';
+import { toaster } from '@/components/ui/toaster';
 
 export function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,9 +24,18 @@ export function LoginForm() {
     // ここで実際のログイン処理を行う
     if (email === 'test@example.com' && password === 'dummypass') {
       // ホーム画面に遷移
+      toaster.create({
+        title: "ログイン成功しました",
+        duration: 2000,
+        type: "success"
+      });
       navigate('/home');
     } else {
-      setError('メールアドレスまたはパスワードが間違っています。');
+      toaster.create({
+        title: "メールアドレスまたはパスワードが間違っています",
+        duration: 2000,
+        type: "error"
+      })
     }
   };
 
@@ -44,18 +52,6 @@ export function LoginForm() {
             <Heading as="h2" size="lg">
               ログイン
             </Heading>
-
-            {error && (
-              // 本当はトーストにしたい
-              <Box animationName="fade-in" animationDuration="slowest">
-              <Alert.Root status="error">
-                <Alert.Indicator />
-                <Alert.Content>
-                  <Alert.Title>{error}</Alert.Title>
-                </Alert.Content>
-              </Alert.Root>
-              </Box>
-            )}
 
             <form onSubmit={handleSubmit}>
               <Flex gap="2" align={"center"} direction={"column"}>
