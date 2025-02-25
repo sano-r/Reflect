@@ -4,12 +4,13 @@ import { useNavigate } from "react-router";
 interface HeaderProps {
   username: string;
 }
+// 使ってないけど念のため残しておく
 
-export function Header({ username}: HeaderProps){
+export function Header({ username }: HeaderProps) {
   const navigate = useNavigate();
   const onClickLogout = () => {
     navigate("/");
-  }
+  };
   return (
     <Flex
       as="header"
@@ -36,5 +37,4 @@ export function Header({ username}: HeaderProps){
       </Flex>
     </Flex>
   );
-};
-
+}
