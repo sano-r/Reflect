@@ -1,41 +1,34 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Heading,
-  Input,
-  Button,
-  Center,
-  Flex,
-  Text
-} from '@chakra-ui/react';
-import { Field } from '@/components/ui/field'
-import { PasswordInput } from '@/components/ui/password-input';
-import { useNavigate } from 'react-router';
-import { toaster } from '@/components/ui/toaster';
+import React, { useState } from "react";
+import { Box, Heading, Input, Center, Flex, Text } from "@chakra-ui/react";
+import { Field } from "@/components/ui/field";
+import { PasswordInput } from "@/components/ui/password-input";
+import { useNavigate } from "react-router";
+import { toaster } from "@/components/ui/toaster";
+import { PrimaryButton } from "@/components/atoms/PrimaryButton";
 
 export function LoginForm() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // ここで実際のログイン処理を行う
-    if (email === 'test@example.com' && password === 'dummypass') {
+    if (email === "test@example.com" && password === "dummypass") {
       // ホーム画面に遷移
       toaster.create({
         title: "ログイン成功しました",
         duration: 2000,
-        type: "success"
+        type: "success",
       });
-      navigate('/home');
+      navigate("/home");
     } else {
       toaster.create({
         title: "メールアドレスまたはパスワードが間違っています",
         duration: 2000,
-        type: "error"
-      })
+        type: "error",
+      });
     }
   };
 
@@ -43,11 +36,19 @@ export function LoginForm() {
     <Center h="100vh" backgroundColor={"gray.100"}>
       <Flex direction="column" align={"center"} gap={4} justify={"center"}>
         <div>
-          <Heading as="h1" size={"3xl"} mb={2}>Reflect | Review yourself!</Heading>
+          <Heading as="h1" size={"3xl"} mb={2}>
+            Reflect | Review yourself!
+          </Heading>
           <Text justifySelf="center">振り返りアプリ</Text>
-
         </div>
-        <Box p={4} maxWidth="md" borderWidth="1px" borderRadius="lg" minWidth={"md"} backgroundColor={"white"}>
+        <Box
+          p={4}
+          maxWidth="md"
+          borderWidth="1px"
+          borderRadius="lg"
+          minWidth={"md"}
+          backgroundColor={"white"}
+        >
           <Flex gap="4" direction={"column"}>
             <Heading as="h2" size="lg">
               ログイン
@@ -55,21 +56,33 @@ export function LoginForm() {
 
             <form onSubmit={handleSubmit}>
               <Flex gap="2" align={"center"} direction={"column"}>
-                <Field mb={4} label="メールアドレス" required errorText="必須入力です">
-                  <Input type='email' value={email} onChange={e => setEmail(e.target.value)} />
+                <Field
+                  mb={4}
+                  label="メールアドレス"
+                  required
+                  errorText="必須入力です"
+                >
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </Field>
 
                 <Field label="パスワード" required>
-                  <PasswordInput value={password} onChange={e => setPassword(e.target.value)} />
+                  <PasswordInput
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </Field>
               </Flex>
-              <Button type="submit" colorPalette="blue" width="full" mt={"4"}>
+              <PrimaryButton type="submit" width="full" mt="4">
                 ログイン
-              </Button>
+              </PrimaryButton>
             </form>
           </Flex>
         </Box>
       </Flex>
     </Center>
   );
-};
+}

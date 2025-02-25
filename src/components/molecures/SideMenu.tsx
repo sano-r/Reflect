@@ -1,6 +1,7 @@
-﻿import { Text, Avatar, Box, Button, Flex } from "@chakra-ui/react";
+﻿import { Text, Avatar, Box, Flex } from "@chakra-ui/react";
 import { RiDashboardFill, RiSettings3Fill, RiTaskFill } from "react-icons/ri";
 import { Link, useNavigate } from "react-router";
+import { PrimaryButton } from "../atoms/PrimaryButton";
 
 export function SideMenu() {
   const navigate = useNavigate();
@@ -66,7 +67,9 @@ export function SideMenu() {
               </Text>
             </Flex>
           </Link>
-          <Button onClick={() => onClickLogout()}>ログアウト</Button>
+          <PrimaryButton onClick={() => onClickLogout()}>
+            ログアウト
+          </PrimaryButton>
         </Flex>
       </Box>
     </Box>
