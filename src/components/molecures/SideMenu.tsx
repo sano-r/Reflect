@@ -1,35 +1,56 @@
-﻿import { Box, Button, Flex } from "@chakra-ui/react";
-import { useState } from "react";
-import { useNavigate } from "react-router";
+﻿import { Text, Avatar, Box, Button, Flex } from "@chakra-ui/react";
+import { IconContext } from "react-icons";
+import { RiTaskFill } from "react-icons/ri";
+import { Link, useNavigate } from "react-router";
 
 export function SideMenu(){
-  const [activeMenu, setActiveMenu] = useState("dashboard");
   const navigate = useNavigate();
 
-  const handleMenuClick = (menu: string) => {
-    setActiveMenu(menu);
-    navigate(`/${menu}`);
-  };
+  const onClickLogout = () => {
+    navigate("/");
+  }
 
   return (
-    <Box w="200px" bg="gray.300" p="4" height={"100vh"} position={"absolute"}>
-      <Flex direction={"column"} gap={4}>
-        <Button
-          onClick={() => handleMenuClick("home")}
-        >
-          ふりかえり
-        </Button>
-        <Button
-          onClick={() => handleMenuClick("review")}
-        >
-          まとめ
-        </Button>
-        <Button
-          onClick={() => handleMenuClick("settings")}
-        >
-          設定
-        </Button>
-      </Flex>
+    <Box w="240px" bg="gray.100" height={"100vh"} position={"absolute"}>
+      <Box maxW={"80%"} ml={4}>
+        <Flex direction={"column"} gap={4}>
+            <Flex direction={"row"} gap="2" mt={4}>
+              <Avatar.Root variant="subtle" colorPalette={"blue"} shape={"rounded"} size={"md"}>
+                <Avatar.Fallback name="Test User" />
+              </Avatar.Root>
+              <Text fontSize={"2xl"}>Test User</Text>
+            </Flex>
+            <Link to={`/home`} >
+              <Flex direction="row" align={"center"}>
+                <IconContext.Provider value={{ size: '1.8rem', color: 'black' }}>
+                  <RiTaskFill />
+                </IconContext.Provider>
+                <Text fontSize={"xl"} fontWeight={"medium"} ml={2}>メイン</Text>
+              </Flex>
+            </Link>
+            <Link to={`/review`} >
+              <Flex direction="row" align={"center"}>
+                <IconContext.Provider value={{ size: '1.8rem', color: 'black' }}>
+                  <RiTaskFill />
+                </IconContext.Provider>
+                <Text fontSize={"xl"} fontWeight={"medium"} ml={2}>まとめ</Text>
+              </Flex>
+            </Link>
+            <Link to={`/settings`} >
+              <Flex direction="row" align={"center"}>
+                <IconContext.Provider value={{ size: '1.8rem', color: 'black' }}>
+                  <RiTaskFill />
+                </IconContext.Provider>
+                <Text fontSize={"xl"} fontWeight={"medium"} ml={2}>設定</Text>
+              </Flex>
+            </Link>
+          <Button
+            onClick={() => onClickLogout()}
+          >
+            ログアウト
+          </Button>
+        </Flex>
+      </Box>
     </Box>
   );
 };
