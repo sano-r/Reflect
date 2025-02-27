@@ -4,17 +4,26 @@ import {
   Heading,
   Input,
   Textarea,
-  Button,
+  // Button,
   Fieldset,
   Field,
-  SelectRoot,
+  // SelectRoot,
   createListCollection,
+  // SelectLabel,
+  // SelectTrigger,
+  // SelectValueText,
+  // SelectContent,
+  // SelectItem,
+  Select
+} from '@chakra-ui/react';
+import {
+  SelectContent,
+  SelectItem,
   SelectLabel,
+  SelectRoot,
   SelectTrigger,
   SelectValueText,
-  SelectContent,
-  SelectItem
-} from '@chakra-ui/react';
+} from "@/components/ui/select"
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
 
 const projects= createListCollection({
@@ -52,29 +61,33 @@ export function Home(){
   };
 
   return (
-    <Box p={4}>
+    <Box p={4} w={{md: 1000}}>
       <Heading mb={4}>KPT 振り返り</Heading>
 
       <Fieldset.Root>
         <Fieldset.Content>
           <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>日付</Field.Label>
-            <Input type='date' value={date} onChange={e => setDate(e.target.value)}></Input>
+            <Field.Label width={"20%"}>日付ああああああああ</Field.Label>
+            <Input type='date' value={date} onChange={e => setDate(e.target.value)} w={"80%"}/>
           </Field.Root>
 
-          <SelectRoot collection={projects} value={projectName} onValueChange={e => setProjectName(e.value)} size={"md"} width={"500px"}>
-            <SelectLabel>プロジェクト名</SelectLabel>
-            <SelectTrigger>
-              <SelectValueText placeholder='プロジェクト名を選択してください'/>
-            </SelectTrigger>
-            <SelectContent>
-              {projects.items.map((item) => (
-                <SelectItem item={item} key={item.id}>
-                  {item.value}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
+          <Field.Root orientation={"horizontal"}>
+            <Field.Label w={"20%"}>プロジェクト名</Field.Label>
+            <SelectRoot collection={projects} value={projectName} onValueChange={e => setProjectName(e.value)} w={"80%"}>
+              {/* <SelectLabel>プロジェクト名</SelectLabel> */}
+              <SelectTrigger>
+                <SelectValueText placeholder='プロジェクト名を選択してください'/>
+              </SelectTrigger>
+              <SelectContent>
+                {projects.items.map((item) => (
+                  <SelectItem item={item} key={item.id}>
+                    {item.value}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </SelectRoot>
+          </Field.Root>
+          
 
           <Field.Root orientation={"horizontal"} mb={4}>
             <Field.Label>Keep</Field.Label>
@@ -91,7 +104,7 @@ export function Home(){
             <Textarea value={tryItem} onChange={e => setTryItem(e.target.value)} maxLength={140}/>
           </Field.Root>
 
-          <PrimaryButton type='button' onClick={handleSubmit}>
+          <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
             登録
           </PrimaryButton>
 
