@@ -27,6 +27,8 @@ import {
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
 import { SingleInput } from '@/components/atoms/SingleInput';
 import { DateInput } from '@/components/atoms/DateInput';
+import { GeneralSelect } from '@/components/atoms/GeneralSelect';
+import { ValueChangeDetails } from '@zag-js/select';
 
 const projects= createListCollection({
   items: [
@@ -67,6 +69,12 @@ export function Home(){
       <Heading mb={4}>KPT 振り返り</Heading>
 
       <DateInput label='日付' value={date} onChangeValue={setDate} />
+      <GeneralSelect 
+        label='プロジェクト' 
+        value={projectName} 
+        placeholder={'プロジェクト名を選択してください'} 
+        options={projects} 
+        onChangeValue={e => setProjectName(e.value)} />
 
       <Fieldset.Root>
         <Fieldset.Content>
