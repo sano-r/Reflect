@@ -25,6 +25,8 @@ import {
   SelectValueText,
 } from "@/components/ui/select"
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
+import { SingleInput } from '@/components/atoms/SingleInput';
+import { DateInput } from '@/components/atoms/DateInput';
 
 const projects= createListCollection({
   items: [
@@ -63,6 +65,8 @@ export function Home(){
   return (
     <Box p={4} w={{md: 1000}}>
       <Heading mb={4}>KPT 振り返り</Heading>
+
+      <DateInput label='日付' value={date} onChangeValue={setDate} />
 
       <Fieldset.Root>
         <Fieldset.Content>
