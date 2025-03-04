@@ -10,16 +10,16 @@ import { Layout } from "./components/shared/Layout";
 export function App() {
   return (
     <>
-    <Toaster />
-    <Routes>
-      <Route path="/" element={<LoginForm />} />
-      <Route element={<Layout />}>
-        <Route path="/home" element={<Home />} />
-        <Route path="/review" element={<Review />} />
-        <Route path="/settings" element={<Settings />} />
-      </Route>
-      <Route path="*" element={<Page404 />} />
-    </Routes>
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route element={<Layout />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/review" element={<Review />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+      </Routes>
     </>
   );
 }
