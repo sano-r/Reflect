@@ -2,29 +2,19 @@ import { useState } from 'react';
 import {
   Box,
   Heading,
-  Input,
-  Textarea,
-  // Button,
-  Fieldset,
-  Field,
-  // SelectRoot,
   createListCollection,
-  // SelectLabel,
-  // SelectTrigger,
-  // SelectValueText,
-  // SelectContent,
-  // SelectItem,
-  Select
+  Separator,
+  VStack,
+  Input,
+  HStack,
 } from '@chakra-ui/react';
-import {
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from "@/components/ui/select"
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
+import { DateInput } from '@/components/atoms/DateInput';
+import { GeneralSelect } from '@/components/atoms/GeneralSelect';
+import { TextInput } from '@/components/atoms/TextInput';
+import { Field } from '@/components/ui/field';
+import { SecondaryButton } from '@/components/atoms/SecondaryButton';
+import {Tag} from '@/components/ui/tag'
 
 const projects= createListCollection({
   items: [
@@ -38,7 +28,7 @@ const projects= createListCollection({
 export function Home(){
   const [date, setDate] = useState<string>('');
   const [projectName, setProjectName] = useState<string[]>([]);
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>(["react","C#"]);
   const [newSkill, setNewSkill] = useState<string>('');
   const [keep, setKeep] = useState<string>('');
   const [problem, setProblem] = useState<string>('');
@@ -62,80 +52,35 @@ export function Home(){
 
   return (
     <Box p={4} w={{md: 1000}}>
-      <Heading mb={4}>KPT 振り返り</Heading>
-
-      <Fieldset.Root>
-        <Fieldset.Content>
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label width={"20%"}>日付ああああああああ</Field.Label>
-            <Input type='date' value={date} onChange={e => setDate(e.target.value)} w={"80%"}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"}>
-            <Field.Label w={"20%"}>プロジェクト名</Field.Label>
-            <SelectRoot collection={projects} value={projectName} onValueChange={e => setProjectName(e.value)} w={"80%"}>
-              {/* <SelectLabel>プロジェクト名</SelectLabel> */}
-              <SelectTrigger>
-                <SelectValueText placeholder='プロジェクト名を選択してください'/>
-              </SelectTrigger>
-              <SelectContent>
-                {projects.items.map((item) => (
-                  <SelectItem item={item} key={item.id}>
-                    {item.value}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </SelectRoot>
-          </Field.Root>
-          
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Keep</Field.Label>
-            <Textarea value={keep} onChange={e => setKeep(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Problem</Field.Label>
-            <Textarea value={problem} onChange={e => setProblem(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Try</Field.Label>
-            <Textarea value={tryItem} onChange={e => setTryItem(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
+      <Heading size="3xl" mb={4}>KPT 振り返り</Heading>
+      <Separator />
+      <VStack p={4} gap={6}>
+        <DateInput label='日付' value={date} onChangeValue={setDate} />
+        <GeneralSelect 
+          label='プロジェクト' 
+          value={projectName} 
+          placeholder={'プロジェクト名を選択してください'} 
+          options={projects} 
+          onChangeValue={e => setProjectName(e.value)} 
+        />
+        <Field label={"使用技術"}>
+          <HStack gap={4}>
+            <Input value={newSkill} onChange={e => setNewSkill(e.target.value)} placeholder='技術名を入力'/>
+            <SecondaryButton onClick={handleAddSkill}>追加</SecondaryButton>
+            <HStack gap={4} border={"solid"} p={2} color={"gray"} rounded={"lg"} w={60}>
+              {skills.map(skill => (<Tag key={skill} cursor={"pointer"} onClose={() => handleDeleteSkill(skill)} size={"lg"} colorPalette={"cyan"}>{skill}</Tag>))}
+            </HStack>
+          </HStack>
+        </Field>
+        <TextInput label={"Keep"} value={keep} onChangeValue={setKeep} />
+        <TextInput label={"Problem"} value={problem} onChangeValue={setProblem} />
+        <TextInput label={"Try"} value={tryItem} onChangeValue={setTryItem} />
+        <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
             登録
-          </PrimaryButton>
+        </PrimaryButton>
+      </VStack>
 
-
-        </Fieldset.Content>
-      </Fieldset.Root>
-
-      {/* <FormControl mb={4}>
-        <FormLabel>使用技術</FormLabel>
-        <Flex>
-          <Input
-            value={newSkill}
-            onChange={(e) => setNewSkill(e.target.value)}
-            placeholder="技術名を入力"
-          />
-          <Button ml={2} onClick={handleAddSkill}>追加</Button>
-        </Flex>
-        <Wrap mt={2}>
-          {skills.map((skill) => (
-            <Tag
-              key={skill}
-              mr={2}
-              mb={2}
-              onClick={() => handleDeleteSkill(skill)}
-              cursor="pointer"
-            >
-              {skill}
-            </Tag>
-          ))}
-        </Wrap>
-      </FormControl> */}
+      
 
     </Box>
   );
