@@ -5,49 +5,75 @@ import {
   createListCollection,
   Separator,
   VStack,
-  Input,
   HStack,
+  Flex,
 } from "@chakra-ui/react";
 import { PrimaryButton } from "@/components/atoms/PrimaryButton";
 import { DateInput } from "@/components/atoms/DateInput";
 import { GeneralSelect } from "@/components/atoms/GeneralSelect";
 import { TextInput } from "@/components/atoms/TextInput";
 import { Field } from "@/components/ui/field";
-import { SecondaryButton } from "@/components/atoms/SecondaryButton";
 import { Tag } from "@/components/ui/tag";
 
-const projects = createListCollection({
+interface Project {
+  id: string;
+  value: string;
+  skills: string[];
+}
+
+const projects = createListCollection<Project>({
   items: [
-    { id: "test01", value: "○○社: △△システムバージョンアップ" },
-    { id: "test02", value: "□□社: ××システムリプレース" },
-    { id: "test03", value: "社内: Webアプリ画面設計" },
-    { id: "test04", value: "社内: ○○システムテスト" },
+    {
+      id: "test01",
+      value: "○○社: △△システムバージョンアップ",
+      skills: ["React", "TypeScript", "Chakra UI"],
+    },
+    {
+      id: "test02",
+      value: "□□社: ××システムリプレース",
+      skills: ["Vue.js", "JavaScript", "Vuetify"],
+    },
+    {
+      id: "test03",
+      value: "社内: Webアプリ画面設計",
+      skills: ["Figma", "Adobe XD"],
+    },
+    {
+      id: "test04",
+      value: "社内: ○○システムテスト",
+      skills: ["JUnit", "Selenium"],
+    },
   ],
 });
 
 export function Home() {
   const [date, setDate] = useState<string>("");
   const [projectName, setProjectName] = useState<string[]>([]);
-  const [skills, setSkills] = useState<string[]>(["react", "C#"]);
-  const [newSkill, setNewSkill] = useState<string>("");
+  const [skills, setSkills] = useState<string[]>([]);
   const [keep, setKeep] = useState<string>("");
   const [problem, setProblem] = useState<string>("");
   const [tryItem, setTryItem] = useState<string>("");
 
-  const handleAddSkill = () => {
-    if (newSkill && !skills.includes(newSkill)) {
-      setSkills([...skills, newSkill]);
-      setNewSkill("");
-    }
-  };
-
-  const handleDeleteSkill = (skillToDelete: string) => {
-    setSkills(skills.filter((skill) => skill !== skillToDelete));
-  };
-
   const handleSubmit = () => {
     // TODO: 登録処理の実装
-    console.log({ date, projectName, skills, keep, problem, tryItem });
+    console.log({
+      date,
+      projectName,
+      skills,
+      keep,
+      problem,
+      tryItem,
+    });
+  };
+
+  const handleProject = (v: string[]) => {
+    setProjectName(v);
+    const project = projects.items.find((project) => project.value === v[0]);
+    if (project) {
+      setSkills(project.skills);
+    } else {
+      setSkills([]);
+    }
   };
 
   return (
@@ -63,36 +89,32 @@ export function Home() {
           value={projectName}
           placeholder={"プロジェクト名を選択してください"}
           options={projects}
-          onChangeValue={(e) => setProjectName(e.value)}
+          onChangeValue={(e) => handleProject(e.value)}
         />
         <Field label={"使用技術"}>
-          <HStack gap={4}>
-            <Input
-              value={newSkill}
-              onChange={(e) => setNewSkill(e.target.value)}
-              placeholder="技術名を入力"
-            />
-            <SecondaryButton onClick={handleAddSkill}>追加</SecondaryButton>
-            <HStack
+          <HStack gap={4} minWidth={60}>
+            <Box
               gap={4}
-              border={"solid"}
+              borderWidth={"1px"}
               p={2}
               color={"gray"}
-              rounded={"lg"}
-              w={60}
+              rounded={"sm"}
+              h={10}
+              width={"100%"}
             >
-              {skills.map((skill) => (
-                <Tag
-                  key={skill}
-                  cursor={"pointer"}
-                  onClose={() => handleDeleteSkill(skill)}
-                  size={"lg"}
-                  colorPalette={"cyan"}
-                >
-                  {skill}
-                </Tag>
-              ))}
-            </HStack>
+              <Flex direction={"row"} gap={4}>
+                {skills.map((skill) => (
+                  <Tag
+                    key={skill}
+                    cursor={"pointer"}
+                    size={"lg"}
+                    colorPalette={"cyan"}
+                  >
+                    {skill}
+                  </Tag>
+                ))}
+              </Flex>
+            </Box>
           </HStack>
         </Field>
         <TextInput label={"Keep"} value={keep} onChangeValue={setKeep} />
