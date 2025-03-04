@@ -4,12 +4,17 @@ import {
   Heading,
   createListCollection,
   Separator,
-  VStack
+  VStack,
+  Input,
+  HStack,
 } from '@chakra-ui/react';
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
 import { DateInput } from '@/components/atoms/DateInput';
 import { GeneralSelect } from '@/components/atoms/GeneralSelect';
 import { TextInput } from '@/components/atoms/TextInput';
+import { Field } from '@/components/ui/field';
+import { SecondaryButton } from '@/components/atoms/SecondaryButton';
+import {Tag} from '@/components/ui/tag'
 
 const projects= createListCollection({
   items: [
@@ -23,7 +28,7 @@ const projects= createListCollection({
 export function Home(){
   const [date, setDate] = useState<string>('');
   const [projectName, setProjectName] = useState<string[]>([]);
-  const [skills, setSkills] = useState<string[]>([]);
+  const [skills, setSkills] = useState<string[]>(["react","C#"]);
   const [newSkill, setNewSkill] = useState<string>('');
   const [keep, setKeep] = useState<string>('');
   const [problem, setProblem] = useState<string>('');
@@ -58,38 +63,24 @@ export function Home(){
           options={projects} 
           onChangeValue={e => setProjectName(e.value)} 
         />
+        <Field label={"使用技術"}>
+          <HStack gap={4}>
+            <Input value={newSkill} onChange={e => setNewSkill(e.target.value)} placeholder='技術名を入力'/>
+            <SecondaryButton onClick={handleAddSkill}>追加</SecondaryButton>
+            <HStack gap={4} border={"solid"} p={2} color={"gray"} rounded={"lg"} w={60}>
+              {skills.map(skill => (<Tag key={skill} cursor={"pointer"} onClose={() => handleDeleteSkill(skill)} size={"lg"} colorPalette={"cyan"}>{skill}</Tag>))}
+            </HStack>
+          </HStack>
+        </Field>
         <TextInput label={"Keep"} value={keep} onChangeValue={setKeep} />
         <TextInput label={"Problem"} value={problem} onChangeValue={setProblem} />
         <TextInput label={"Try"} value={tryItem} onChangeValue={setTryItem} />
         <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
             登録
-          </PrimaryButton>
+        </PrimaryButton>
       </VStack>
 
-      {/* <FormControl mb={4}>
-        <FormLabel>使用技術</FormLabel>
-        <Flex>
-          <Input
-            value={newSkill}
-            onChange={(e) => setNewSkill(e.target.value)}
-            placeholder="技術名を入力"
-          />
-          <Button ml={2} onClick={handleAddSkill}>追加</Button>
-        </Flex>
-        <Wrap mt={2}>
-          {skills.map((skill) => (
-            <Tag
-              key={skill}
-              mr={2}
-              mb={2}
-              onClick={() => handleDeleteSkill(skill)}
-              cursor="pointer"
-            >
-              {skill}
-            </Tag>
-          ))}
-        </Wrap>
-      </FormControl> */}
+      
 
     </Box>
   );
