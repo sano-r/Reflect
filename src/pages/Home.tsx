@@ -2,33 +2,14 @@ import { useState } from 'react';
 import {
   Box,
   Heading,
-  Input,
-  Textarea,
-  // Button,
-  Fieldset,
-  Field,
-  // SelectRoot,
   createListCollection,
-  // SelectLabel,
-  // SelectTrigger,
-  // SelectValueText,
-  // SelectContent,
-  // SelectItem,
-  Select
+  Separator,
+  VStack
 } from '@chakra-ui/react';
-import {
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from "@/components/ui/select"
 import { PrimaryButton } from '@/components/atoms/PrimaryButton';
-import { SingleInput } from '@/components/atoms/SingleInput';
 import { DateInput } from '@/components/atoms/DateInput';
 import { GeneralSelect } from '@/components/atoms/GeneralSelect';
-import { ValueChangeDetails } from '@zag-js/select';
+import { TextInput } from '@/components/atoms/TextInput';
 
 const projects= createListCollection({
   items: [
@@ -66,65 +47,24 @@ export function Home(){
 
   return (
     <Box p={4} w={{md: 1000}}>
-      <Heading mb={4}>KPT 振り返り</Heading>
-
-      <DateInput label='日付' value={date} onChangeValue={setDate} />
-      
-      <GeneralSelect 
-        label='プロジェクト' 
-        value={projectName} 
-        placeholder={'プロジェクト名を選択してください'} 
-        options={projects} 
-        onChangeValue={e => setProjectName(e.value)} 
-      />
-
-      <Fieldset.Root>
-        <Fieldset.Content>
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label width={"20%"}>日付ああああああああ</Field.Label>
-            <Input type='date' value={date} onChange={e => setDate(e.target.value)} w={"80%"}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"}>
-            <Field.Label w={"20%"}>プロジェクト名</Field.Label>
-            <SelectRoot collection={projects} value={projectName} onValueChange={e => setProjectName(e.value)} w={"80%"}>
-              {/* <SelectLabel>プロジェクト名</SelectLabel> */}
-              <SelectTrigger>
-                <SelectValueText placeholder='プロジェクト名を選択してください'/>
-              </SelectTrigger>
-              <SelectContent>
-                {projects.items.map((item) => (
-                  <SelectItem item={item} key={item.id}>
-                    {item.value}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </SelectRoot>
-          </Field.Root>
-          
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Keep</Field.Label>
-            <Textarea value={keep} onChange={e => setKeep(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Problem</Field.Label>
-            <Textarea value={problem} onChange={e => setProblem(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <Field.Root orientation={"horizontal"} mb={4}>
-            <Field.Label>Try</Field.Label>
-            <Textarea value={tryItem} onChange={e => setTryItem(e.target.value)} maxLength={140}/>
-          </Field.Root>
-
-          <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
+      <Heading size="3xl" mb={4}>KPT 振り返り</Heading>
+      <Separator />
+      <VStack p={4} gap={6}>
+        <DateInput label='日付' value={date} onChangeValue={setDate} />
+        <GeneralSelect 
+          label='プロジェクト' 
+          value={projectName} 
+          placeholder={'プロジェクト名を選択してください'} 
+          options={projects} 
+          onChangeValue={e => setProjectName(e.value)} 
+        />
+        <TextInput label={"Keep"} value={keep} onChangeValue={setKeep} />
+        <TextInput label={"Problem"} value={problem} onChangeValue={setProblem} />
+        <TextInput label={"Try"} value={tryItem} onChangeValue={setTryItem} />
+        <PrimaryButton type='button' onClick={handleSubmit} w="300px" alignSelf={"end"}>
             登録
           </PrimaryButton>
-
-
-        </Fieldset.Content>
-      </Fieldset.Root>
+      </VStack>
 
       {/* <FormControl mb={4}>
         <FormLabel>使用技術</FormLabel>
